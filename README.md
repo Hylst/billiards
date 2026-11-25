@@ -14,6 +14,7 @@ Joue ici : [games.hylst.fr/billiards/](https://games.hylst.fr/billiards/)
 - Visée à la souris, puissance réglable, effet sur la blanche et simulation physique.
 - Score, combos, billes empochées, particules et traînées.
 - Musique et effets sonores synthétisés avec Web Audio.
+- Sur mobile, un tap suffit : la visée, la puissance et l'effet se règlent au doigt, et le message d'aide ne bloque plus les clics.
 
 ## Technique
 

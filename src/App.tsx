@@ -1002,19 +1002,35 @@ function App() {
     }
   };
 
-  const handleClick = () => {
+  const changePhase = (next: typeof gameState) => {
+    gameStateRef.current = next;
+    setGameState(next);
+  };
+
+  const handleClick = (event?: React.MouseEvent<HTMLCanvasElement>) => {
     initAudio();
-    if (gameState === 'aiming') {
-      setGameState('power');
+    // Un tap tactile ne passe pas forcement par onMouseMove : la position du
+    // clic fait foi pour viser et definir l'effet.
+    let aim = mousePos;
+    if (event) {
+      const position = pointerPosition(event);
+      if (position) {
+        aim = position;
+        setMousePos(position);
+      }
+    }
+    const phase = gameStateRef.current;
+    if (phase === 'aiming') {
+      changePhase('power');
       showMessage('Ajustez la puissance puis cliquez', 1500);
-    } else if (gameState === 'power') {
-      setGameState('spinning');
+    } else if (phase === 'power') {
+      changePhase('spinning');
       showMessage('Cliquez sur la bille blanche pour définir l\'effet', 2000);
     } else if (gameState === 'spinning') {
       const cueBall = balls.find(b => b.id === 0 && !b.pocketed);
       if (cueBall) {
-        const dx = mousePos.x - cueBall.x;
-        const dy = mousePos.y - cueBall.y;
+        const dx = aim.x - cueBall.x;
+        const dy = aim.y - cueBall.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist > 0) {
           const speed = power * 0.28;
@@ -1029,7 +1045,7 @@ function App() {
             } : b
           ));
           setSpinPos({ x: 0, y: 0 });
-          setGameState('simulating');
+          changePhase('simulating');
         }
       }
     }
@@ -1096,7 +1112,7 @@ function App() {
 
       {/* Message overlay */}
       {message && (
-        <div className="absolute top-24 left-1/2 -translate-x-1/2 z-20 animate-pulse">
+        <div className="pointer-events-none absolute top-24 left-1/2 -translate-x-1/2 z-20 animate-pulse">
           <div className="px-6 py-3 bg-gradient-to-r from-[#f4a261] to-[#e8964f] text-[#1a1a2e] font-bold rounded-full shadow-2xl text-lg">
             {message}
           </div>
