@@ -1107,7 +1107,7 @@ function App() {
         <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-[#f4a261] via-[#faf3e0] to-[#f4a261] bg-clip-text text-transparent font-serif tracking-wide drop-shadow-lg">
           🎱 Billard
         </h1>
-        <p className="text-[#8888aa] text-sm mt-1 italic">Un jeu de Geoffroy</p>
+        <p className="text-[#8888aa] text-sm mt-1 italic">Un jeu de Geoffroy Streit (Hylst), avec l'aide d'une IA</p>
       </div>
 
       {/* Message overlay */}
@@ -1266,7 +1266,7 @@ function App() {
 
       {/* Footer */}
       <div className="relative z-10 mt-4 text-[#555577] text-xs">
-        Créé avec ❤️ par Geoffroy • Billard Classique
+        Créé avec ❤️ par Geoffroy Streit (Hylst), avec l'aide d'une IA • Billard Classique
       </div>
     </div>
   );
